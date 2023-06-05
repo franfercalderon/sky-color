@@ -3,12 +3,198 @@
     margin: 0
     padding: 0
 
-// .search-results-container ul
-//     list-style: none
+//VARIABLES
 
-.search-results-container ul li
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap')
+
+$sunny: #96caec
+$cloudy: #94c5e8 
+$dusty: #b7b19f
+$stormy: #bdbcbc
+$foggy: #c6cbce
+$snowy: #dde1e2
+
+$lightbackground: #f4f7f8
+$darkbackground: #222223
+$lightfont1: #e6e6e6
+$lightfont2: #b9b9b9
+$darkfont1: #222223
+$darkfont2: #3d3e3f
+$greenadd: #a2e373
+
+$opensans: 'Open Sans', sans-serif
+
+//MAIN
+.main-container
+    background-color: $lightbackground
+    font-family: $opensans
+    height: 100vh
+    width: 100%
+    display: flex
+    padding: 50px 30px
+    flex-direction: column
+    align-items: center
+    transition: background-color 0.5s linear
+
+.main-container h2
+    color: $darkfont2
+    transition: color 0.5s linear
+    font-size: 1.8rem
+    margin: 15px 0
+
+.main-container p
+    color: $darkfont2
+    transition: color 0.5s linear
+
+.color-frame-main-container
+    width: 100%
+
+//SEARCHBAR
+.searchbar-container
+    width: 100%
+    display: flex
+    flex-direction: column
+    align-items: center
+    margin: 25px 0
+
+.search-input 
+    height: 2rem
+    width: 35%
+    padding-left: 10px
+    border-radius: 1rem
+    border: 1px solid $darkfont2
+
+.search-input.extended
+    border-bottom-left-radius: 0
+    border-bottom-right-radius: 0
+    border-bottom: 1px solid $lightfont2
+
+.search-input:focus
+    outline: none
+
+.location-results-li
     list-style: none
     cursor: pointer
+    margin-bottom: 2px
 
+.location-results-li span
+    font-weight: 600
+
+.search-results-container
+    width: 35%
+    border: 1px solid $darkfont2
+    padding: 10px
+    border-top: none
+    border-bottom-left-radius: 1rem
+    border-bottom-right-radius: 1rem
+
+    // margin-top: -1rem
+
+
+//COLORS FRAME
+.frame-container
+    width: 100%
+    display: flex
+    flex-direction: column
+    align-items: center
+
+.colors-container
+    display: flex
+    justify-content: center
+    width: 100%
+    height: 200px
+
+.color-div
+    height: 100%
+
+.color-div.sunny
+    background-color: $sunny 
+
+.color-div.cloudy
+    background-color: $cloudy
+
+.color-div.dusty
+    background-color: $dusty 
+
+.color-div.stormy
+    background-color: $stormy
+
+.color-div.foggy
+    background-color: $foggy
+
+.color-div.snowy
+    background-color: $snowy
+
+//BUTTONS
 .dark-mode-btn
     cursor: pointer
+    color: $darkfont2
+    position: absolute
+    right: 0
+    top: 0
+    margin: 25px 
+    font-size: 1.6rem
+    transition: color 0.5s linear
+    display: flex
+    align-items: center
+    opacity: 0.8
+    transition: opacity 0.3s linear
+
+.dark-mode-btn:hover
+    opacity: 1
+    transition: opacity 0.3s linear
+
+.dark-mode-tag
+    font-size: 0.9rem
+    margin-right: 15px
+    height: 1.6rem
+    padding: 8px
+    border: 1px solid $lightfont2
+    border-radius: 5px
+    display: flex
+    align-items: center
+    justify-content: center
+    transition: border 0.5s linear
+
+.add-btn
+    height: 2.5rem
+    width: 2.5rem
+    border-radius: 50%
+    display: flex
+    align-items: center
+    justify-content: center
+    font-size: 1.9rem
+    background-color: $greenadd
+    color: $lightbackground
+    cursor: pointer
+    opacity: 0.89
+
+.add-btn:hover
+    opacity: 1
+    
+
+//DARK MODE
+.main-container.dark
+    background-color: $darkbackground
+    transition: background-color 0.5s linear
+
+.dark-mode-btn.dark
+    color: $lightfont2
+    transition: color 0.5s linear
+
+.dark-mode-tag.dark
+    border: 1px solid $darkfont2
+    transition: border 0.5s linear
+
+.main-container.dark h2
+    color: $lightfont1
+    transition: color 0.5s linear
+
+.main-container.dark p
+    color: $lightfont2
+    transition: color 0.5s linear
+
+.add-btn.dark
+    color: $darkbackground
+
+
