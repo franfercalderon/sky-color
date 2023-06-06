@@ -4,43 +4,49 @@
     padding: 0
 
 //VARIABLES
-
+//Fonts
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap')
-
+$opensans: 'Open Sans', sans-serif
+//Weather Colors
 $sunny: #96caec
 $cloudy: #94c5e8 
 $dusty: #b7b19f
 $stormy: #bdbcbc
 $foggy: #c6cbce
 $snowy: #dde1e2
-
-$lightbackground: #f4f7f8
+//Elements colors
+$lightbackground: #d9d9d9
 $darkbackground: #222223
 $lightfont1: #e6e6e6
 $lightfont2: #b9b9b9
 $darkfont1: #222223
 $darkfont2: #3d3e3f
-$greenadd: #a2e373
-
-$opensans: 'Open Sans', sans-serif
+$darkfont3: #868686
+$greenadd: #76eb22
+$blue1: #488bf0
+$blue2: #92baf5
+$red1: #ee6c4d
+$red2: #f1886d
 
 //MAIN
 .main-container
     background-color: $lightbackground
     font-family: $opensans
     height: 100vh
-    width: 100%
+    // width: 100%
     display: flex
-    padding: 50px 30px
+    padding-bottom: 50px 
     flex-direction: column
     align-items: center
     transition: background-color 0.5s linear
+    overflow: scroll
 
 .main-container h2
     color: $darkfont2
     transition: color 0.5s linear
     font-size: 1.8rem
-    margin: 15px 0
+    margin: 0 0 30px
+
 
 .main-container p
     color: $darkfont2
@@ -48,6 +54,14 @@ $opensans: 'Open Sans', sans-serif
 
 .color-frame-main-container
     width: 100%
+    padding: 10px 4%
+    display: flex
+    flex-direction: column
+
+
+.title-color
+    color: $blue1
+    font-weight: 600
 
 //SEARCHBAR
 .searchbar-container
@@ -55,19 +69,23 @@ $opensans: 'Open Sans', sans-serif
     display: flex
     flex-direction: column
     align-items: center
-    margin: 25px 0
+    margin-top: 50px 
+    font-size: 1rem
 
 .search-input 
-    height: 2rem
+    height: 2.1rem
     width: 35%
-    padding-left: 10px
+    padding: 4px 0 0 14px
     border-radius: 1rem
-    border: 1px solid $darkfont2
+    border: none
+    transition: background-color 0.5s ease-in-out
+    color: $darkfont2
+    font-weight: 400
 
 .search-input.extended
     border-bottom-left-radius: 0
     border-bottom-right-radius: 0
-    border-bottom: 1px solid $lightfont2
+    border-bottom: 1px solid $blue2
 
 .search-input:focus
     outline: none
@@ -77,19 +95,26 @@ $opensans: 'Open Sans', sans-serif
     cursor: pointer
     margin-bottom: 2px
 
+.location-results-li:hover
+    color: $blue1
+
+.location-results-li:focus
+    color: $blue1
+    outline: none
+
 .location-results-li span
     font-weight: 600
 
 .search-results-container
     width: 35%
-    border: 1px solid $darkfont2
-    padding: 10px
+    padding: 10px 13px
     border-top: none
     border-bottom-left-radius: 1rem
     border-bottom-right-radius: 1rem
-
-    // margin-top: -1rem
-
+    background-color: field
+    color: $darkfont3
+    font-size: 1rem
+    transition: background-color 0.5s ease-in-out 
 
 //COLORS FRAME
 .frame-container
@@ -97,6 +122,12 @@ $opensans: 'Open Sans', sans-serif
     display: flex
     flex-direction: column
     align-items: center
+    margin: 20px 0
+    position: relative
+
+.frame-container h3 
+    margin: 10px 0
+
 
 .colors-container
     display: flex
@@ -106,6 +137,7 @@ $opensans: 'Open Sans', sans-serif
 
 .color-div
     height: 100%
+    width: 0.27%
 
 .color-div.sunny
     background-color: $sunny 
@@ -125,18 +157,68 @@ $opensans: 'Open Sans', sans-serif
 .color-div.snowy
     background-color: $snowy
 
+.data-container
+    position: absolute
+    height: 200px
+    width: 100%
+    display: flex
+    align-items: center
+    justify-content: space-between
+    transition: color 0.5s ease-in-out 
+
+.date-container
+    height: 40px
+    color: $darkfont2
+    font-size: 0.9rem
+    margin: 0 28px
+    display: flex
+    flex-direction: column
+    align-items: center
+    color: field
+
+.location-title-container
+    padding: 2px
+    width: 30%
+    display: flex
+    justify-content: center
+    cursor: pointer
+
+.adjustable-container
+    height: 3rem
+    padding: 1px 30px
+    background-color: field
+    display: flex
+    justify-content: center
+    align-items: center
+    border-radius: 1.5rem
+    color: $darkfont2
+    font-size: 1rem
+    
+
+.adjustable-container.trash
+    padding: 1px 
+    height: 3rem
+    width: 3rem
+    background-color: $red1
+    color: $lightfont1
+    font-size: 1.2rem
+    transition: background-color 0.1s ease-in-out
+    box-shadow: 0px -1px 10px 0px $darkfont3
+
+.trash:active
+    box-shadow: 0px -1px 8px 0px rgba(0,0,0,0.75) inset
+
 //BUTTONS
 .dark-mode-btn
     cursor: pointer
     color: $darkfont2
-    position: absolute
-    right: 0
-    top: 0
-    margin: 25px 
+    width: 100%
+    padding: 30px 35px 20px
     font-size: 1.6rem
     transition: color 0.5s linear
     display: flex
     align-items: center
+    justify-content: flex-end
     opacity: 0.8
     transition: opacity 0.3s linear
 
@@ -164,15 +246,62 @@ $opensans: 'Open Sans', sans-serif
     align-items: center
     justify-content: center
     font-size: 1.9rem
-    background-color: $greenadd
-    color: $lightbackground
+    font-weight: 400
+    background-color: $lightfont2
+    color: white
     cursor: pointer
     opacity: 0.89
 
 .add-btn:hover
     opacity: 1
-    
 
+.clear-all-btn
+    display: flex
+    justify-content: flex-end
+    padding-right: 1%
+    align-items: center
+    font-size: 1rem
+    font-weight: 600
+    opacity: 0.8
+    cursor: pointer
+
+.clear-all-btn p 
+    margin-right: 5px
+
+.clear-all-btn:hover
+    opacity: 1
+
+//LOADER
+.loader-container
+    width: 100%
+    height: 200px
+    display: flex
+    justify-content: center
+    align-items: center
+
+.lds-dual-ring 
+  display: inline-block
+  width: 45px
+  height: 45px
+
+.lds-dual-ring:after 
+  content: " "
+  display: block
+  width: 30px
+  height: 30px
+  margin: 4px
+  border-radius: 50%
+  border: 4px solid #fff
+  border-color: #fff transparent #fff transparent
+  animation: lds-dual-ring 1.2s linear infinite
+
+@keyframes lds-dual-ring 
+  0% 
+    transform: rotate(0deg)
+  100% 
+    transform: rotate(360deg)
+  
+    
 //DARK MODE
 .main-container.dark
     background-color: $darkbackground
@@ -197,4 +326,41 @@ $opensans: 'Open Sans', sans-serif
 .add-btn.dark
     color: $darkbackground
 
+.search-input.dark
+    background-color: $darkfont2
+    transition: background-color 0.5s ease-in-out 
+    color: $lightfont1
 
+.search-input.dark::placeholder
+
+    color: $lightfont2
+    transition: color 1s ease-in-out 
+
+.search-results-container.dark
+    background-color: $darkfont2
+    transition: background-color 0.5s ease-in-out 
+
+.search-results-container.dark li 
+    color: $lightfont1
+    transition: color 0.5s ease-in-out 
+
+.dark .date-container 
+    color: $darkfont1
+    transition: color 0.5s ease-in-out 
+
+.dark .adjustable-container
+    background-color: $darkbackground
+    color: $lightfont2
+    
+
+.dark .adjustable-container.trash
+    background-color: $red2
+    color: $darkfont2
+    transition: background-color 0.1s ease-in-out
+    box-shadow: 0px -1px 10px 0px $darkfont1
+
+.dark .trash:active
+    box-shadow: 0px -1px 8px 0px rgba(0,0,0,0.75) inset
+
+.dark .clear-all-btn
+    color: $lightfont2

@@ -6,16 +6,14 @@ import { useContext } from "react"
 export default function Main() {
 
     const {isDark} = useContext(AppContext)
-
-    console.log(isDark)
-
     
     return (
         <div className={`main-container ${isDark ? 'dark' : ''}`}>
             <DarkThemeButton/>
             <h2>Welcome to Sky Color</h2>
-            <p>Search for a location to see the last year weather color at a glance.</p>
-            <ColorFrameContainer/>
+            <p>Search for a location.</p>
+            <p>Get its last year <span className="title-color">sky colors</span>.</p>
+            <ColorFrameContainer isDark={isDark}/>
         </div>
     )
 }

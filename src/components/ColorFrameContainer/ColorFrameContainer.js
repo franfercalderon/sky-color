@@ -1,18 +1,30 @@
 import ColorFrame from "../ColorFrame/ColorFrame"
+import Loader from "../Loader/Loader"
 import SearchBar from "../SearchBar/SearchBar"
-import { useEffect, useState } from "react"
+import { useEffect, useState} from "react"
+import ClearResults from "../ClearResults/ClearResults"
 
-export default function ColorFrameContainer(){
+export default function ColorFrameContainer({isDark}){
 
     //STATE
     const [selectedLocation, setSelectedLocation] = useState(null) 
     const [locationData, setLocationData] = useState([]) 
+    const [isLoading, setIsLoading] = useState(false)
 
     //FUNCTIONS
     const selectLocation = (location) =>{
-
         //Stores selected location in state
         setSelectedLocation(location)
+    }
+
+    const deleteLocation = (id) =>{
+        const updatedLocations = locationData.filter(element=>element.id !== id)
+        setLocationData(updatedLocations)
+    }
+
+    const clearAllResults = ()=>{
+        //Clears all locations data
+        setLocationData([])
     }
 
     //EFFECTS
@@ -57,7 +69,8 @@ export default function ColorFrameContainer(){
         }
 
         const getHistoricWeather = async () =>{
-
+            //Shows Loader
+            setIsLoading(true)
             //Gets information to call URL
             const lat = formatLatAndLng(selectedLocation.latitude)
             const lng = formatLatAndLng(selectedLocation.longitude)
@@ -69,13 +82,18 @@ export default function ColorFrameContainer(){
             const jsonRes = await res.json()
             const weatherInfo = jsonRes.daily.weathercode
 
+            //Creates ID for this element
+            const id = locationData.length + 1
+
             //Updates state including previous information, adding new location object to array.
             setLocationData([...locationData, { 
+                    id,
                     weatherInfo,
                     name: selectedLocation.name,
                     country: selectedLocation.country
                 }
             ])
+            setIsLoading(false)
         }
 
         if (selectedLocation){
@@ -86,16 +104,23 @@ export default function ColorFrameContainer(){
     },[selectedLocation])
 
     return(
-        <div className="color-frame-main-container">
+        <div className={`color-frame-main-container ${isDark ? 'dark' : ''}`}>
+            {locationData.length > 0 &&
+                <ClearResults clearAllResults={clearAllResults}/>
+            }
             {locationData.length > 0 &&
                 locationData.map((location, idx)=>{
                     return(
-                        <ColorFrame location={location} key={idx}/>
-                        )
+                        <ColorFrame location={location} deleteLocation={deleteLocation} key={idx}/>
+                    )
                         
-                    })
-                }
-            <SearchBar selectLocation={selectLocation} locationData={locationData}/>
+                })
+            }
+            {isLoading ?
+            <Loader/>
+            :
+            <SearchBar selectLocation={selectLocation} locationData={locationData} />
+            }
         </div>
     )
 }

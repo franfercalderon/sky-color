@@ -1,7 +1,13 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import {faTrashCan} from "@fortawesome/free-regular-svg-icons"
 
-export default function ColorFrame({location}){
+export default function ColorFrame({location, deleteLocation}){
+    //STATES
+    const [dates, setDates] = useState(null)
+    const [showOptions, setShowOptions] = useState(false)
 
+    //FUNCTIONS
     //Assigns a color depending on the weather code:
     const getWeatherCondition = (code) =>{
         if (code === 0) {
@@ -24,22 +30,51 @@ export default function ColorFrame({location}){
         }
     }
 
-    return(
-        <div className="frame-container">
-            <h3>{'Colors for ' + location.name + ', ' + location.country}</h3>
-            <div className="colors-container"> 
-                {location.weatherInfo.map((code, idx)=>{
+    //EFFECTS
+    useEffect(()=>{
+        //Creates date object with current date, this will be used to show date information with the graphic
+        const currentDate = new Date()
+        const month = currentDate.toLocaleString('en-US', { month: 'short' }).toUpperCase()
+        const year = currentDate.getFullYear()
+        setDates({month, year})
+    },[])
 
+    return(
+        <>
+        <div className="frame-container" onMouseLeave={()=>setShowOptions(false)}>
+
+            <div className="colors-container">
+                {location.weatherInfo.map((code, idx)=>{
                     //Gets color for className
                     const weatherCondition = getWeatherCondition(code)
                     return(
-                        <div key={idx} className={weatherCondition + ' color-div'} style={{width:`${1000/location.weatherInfo.length}px`}}>
-
+                        <div key={idx} className={weatherCondition + ' color-div'}>
                         </div>
                     )
                 })
                 }
             </div>
+            <div className="data-container">
+                <div className="date-container left">
+                    <h4>{dates && dates.month}</h4>
+                    <h4>{dates && dates.year-1}</h4>
+                </div>
+                <div className={`location-title-container`} onMouseEnter={()=>setShowOptions(true)} onMouseLeave={()=>setShowOptions(false)}>
+                    <div className={`adjustable-container ${showOptions ? 'trash': ''}`}  onClick={()=>deleteLocation(location.id)}>
+                        {showOptions ?
+                        <FontAwesomeIcon icon={faTrashCan} />
+                        :
+                        <h3>{location.name + ', ' + location.country}</h3>
+                        }
+                    </div>
+                </div>
+                <div className="date-container right">
+                    <h4>{dates && dates.month}</h4>
+                    <h4>{dates && dates.year-1}</h4>
+                </div>
+
+            </div>
         </div>
+        </>
     )
 }
